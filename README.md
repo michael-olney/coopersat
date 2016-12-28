@@ -14,7 +14,8 @@ algorithm:
     $ cabal test
 
 The tests may take a few minutes to run if the instances generated are
-difficult.
+difficult. Documentation is available [here][3].
 
 [1]: https://www.cs.cmu.edu/~emc/spring06/home1_files/Cooper.pdf
 [2]: https://hackage.haskell.org/package/presburger
+[3]: https://spectralforms.com/michael/coopersat/
