@@ -375,6 +375,6 @@ elimV v = simpB . (elimV2 v) . (elimV1 v) . (norm v)
 elimVAll :: BExp -> BExp
 elimVAll e = (foldr elimV e) . S.toList . fvBExp $ e
 
+-- | Return True if formula is satisfiable, False if not.
 cooperSat :: BExp -> Bool
 cooperSat = eval . elimVAll . simpB
-

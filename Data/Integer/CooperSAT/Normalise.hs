@@ -2,6 +2,7 @@ module Data.Integer.CooperSAT.Normalise (nnf) where
 
 import Data.Integer.CooperSAT.Syntax
 
+-- | Convert formula to Negation Normal Form (NNF)
 nnf :: BExp -> BExp
 nnf e@(Less _ _) = e
 nnf e@(Divs _ _) = e

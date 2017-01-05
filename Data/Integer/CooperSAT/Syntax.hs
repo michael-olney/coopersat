@@ -1,5 +1,7 @@
+-- | Abstract syntax of formulas
+
 module Data.Integer.CooperSAT.Syntax (
-    AExp(..), BExp(..), subst, randBExp,
+    AExp(..), BExp(..), Subst, subst, randBExp,
     fvBExp
     ) where
 
@@ -7,19 +9,21 @@ import qualified Data.Set as S
 import qualified Data.Map as M
 import System.Random
 
+-- | The type of arithmetic expressions.
 data AExp =
-    Lit Integer
-    | Var Int
-    | Add AExp AExp
-    | Mul Integer AExp
+    Lit Integer         -- ^ Integer constant
+    | Var Int           -- ^ Integer variable
+    | Add AExp AExp     -- ^ Addition of two arithmetic expressions
+    | Mul Integer AExp  -- ^ Multiplication by a constant
     deriving (Eq, Ord, Read, Show)
 
+-- | The type of relational expressions.
 data BExp =
-    Conj BExp BExp
-    | Disj BExp BExp
-    | Not BExp
-    | Less AExp AExp
-    | Divs Integer AExp
+    Conj BExp BExp      -- ^ Logical conjunction
+    | Disj BExp BExp    -- ^ Logical disjunction
+    | Not BExp          -- ^ Logical negation
+    | Less AExp AExp    -- ^ Less-than operator
+    | Divs Integer AExp -- ^ Test of divisability by a constant
     deriving (Eq, Ord, Read, Show)
 
 fvAExp :: AExp -> S.Set Int
@@ -28,6 +32,7 @@ fvAExp (Var v)      = S.singleton v
 fvAExp (Add e0 e1)  = S.union (fvAExp e0) (fvAExp e1)
 fvAExp (Mul _ e)    = fvAExp e
 
+-- | Return a set containing all the free variables in an expression.
 fvBExp :: BExp -> S.Set Int
 fvBExp (Conj e0 e1) = S.union (fvBExp e0) (fvBExp e1)
 fvBExp (Disj e0 e1) = S.union (fvBExp e0) (fvBExp e1)
@@ -49,6 +54,7 @@ substA (Add e0 e1) s                =
 substA (Mul v e) s                  =
     Mul v (substA e s)
 
+-- | Substitute the given values into an expression.
 subst :: BExp -> Subst -> BExp
 subst (Conj e0 e1) s = Conj (subst e0 s) (subst e1 s)
 subst (Disj e0 e1) s = Disj (subst e0 s) (subst e1 s)
@@ -74,6 +80,7 @@ randAExp gen n = case (nextMod gen0 3) of
     (gen', gen0) = split gen
     (gen2, gen1) = split gen'
 
+-- | Generate a random relational expression (for testing purposes).
 randBExp :: StdGen -> Int -> BExp
 randBExp gen 0 = Less (randAExp gen 0) (randAExp gen 1)
 randBExp gen n = case (nextMod gen0 4) of
