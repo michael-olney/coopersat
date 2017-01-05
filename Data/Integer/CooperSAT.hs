@@ -8,7 +8,8 @@ in this paper:
 
 module Data.Integer.CooperSAT (
     cooperSat,
-    module Data.Integer.CooperSAT.Syntax
+    module Data.Integer.CooperSAT.Syntax,
+    module Data.Integer.CooperSAT.Sem
     ) where
 
 import qualified Data.Map as M
