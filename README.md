@@ -1,6 +1,6 @@
 # coopersat: Cooper's Algorithm for QFLIA
 
-This is a simple solver for [quantifier-free linear integer arithmetic][4]. It uses
+This is a simple solver for [quantifier-free linear integer arithmetic][3]. It uses
 [Cooper's algorithm][1] and is written in Haskell. To build and install, use
 cabal in the root of the repository working directory:
 
@@ -14,9 +14,8 @@ algorithm:
     $ cabal test
 
 The tests may take a few minutes to run if the instances generated are
-difficult. Documentation is available [here][3].
+difficult.
 
 [1]: https://www.cs.cmu.edu/~emc/spring06/home1_files/Cooper.pdf
 [2]: https://hackage.haskell.org/package/presburger
-[3]: https://spectralforms.com/michael/coopersat/
-[4]: https://en.wikipedia.org/wiki/Presburger_arithmetic
+[3]: https://en.wikipedia.org/wiki/Presburger_arithmetic
